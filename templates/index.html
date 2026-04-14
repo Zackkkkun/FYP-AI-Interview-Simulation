@@ -7,6 +7,9 @@
 
 <h1>AI Interview System</h1>
 
+<h2 id="question">{{ question }}</h2>
+
+
 <input type="text" id="answer" placeholder="Type your answer here">
 <button onclick="sendAnswer()">Submit</button>
 
@@ -15,13 +18,16 @@
 <script>
 function sendAnswer() {
     let answer = document.getElementById("answer").value;
+    let question = document.getElementById("question").innerText;
 
     fetch("/analyze", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ answer: answer })
+        body: JSON.stringify({
+        answer: answer,
+        question: question})
     })
     .then(res => res.json())
     .then(data => {
